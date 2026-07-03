@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer
@@ -41,13 +43,15 @@ export default function Footer() {
             Quick Links
           </h4>
           <p style={{ fontSize: 13.5, opacity: 0.85, lineHeight: 2 }}>
-            <a href="#" style={{ color: "inherit", textDecoration: "none" }}>Home</a>
+            <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
             <br />
-            <a href="#our-blends" style={{ color: "inherit", textDecoration: "none" }}>Our Blends</a>
+            <Link href="/shop" style={{ color: "inherit", textDecoration: "none" }}>Shop</Link>
             <br />
-            <a href="#subscription" style={{ color: "inherit", textDecoration: "none" }}>Subscriptions</a>
+            <Link href="/orders" style={{ color: "inherit", textDecoration: "none" }}>My Orders</Link>
             <br />
-            <a href="#faq" style={{ color: "inherit", textDecoration: "none" }}>FAQs</a>
+            <Link href="/chaimaker" style={{ color: "inherit", textDecoration: "none", fontWeight: "bold", color: "#f1c40f" }}>⚡ Brewmaster Panel</Link>
+            <br />
+            <Link href="/admin" style={{ color: "inherit", textDecoration: "none", fontWeight: "bold", color: "#e74c3c" }}>🛡️ Admin Panel</Link>
           </p>
         </div>
 
