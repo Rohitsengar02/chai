@@ -159,12 +159,8 @@ export default function ProductDetailPage({ params }) {
 
   // Actions
   const handlePurchase = () => {
-    if (purchaseType === "subscription") {
-      router.push(`/subscribe?productId=${product.id}`);
-    } else {
-      setModalStep("sugar");
-      setIsAddonModalOpen(true);
-    }
+    setModalStep("sugar");
+    setIsAddonModalOpen(true);
   };
 
   const toggleAddon = (addon) => {
@@ -179,7 +175,11 @@ export default function ProductDetailPage({ params }) {
 
   const handleFinishCheckout = () => {
     const addonIds = selectedAddons.map((a) => a.id).join(",");
-    router.push(`/checkout?productId=${product.id}&quantity=${quantity}&addons=${addonIds}&sugar=${sugarLevel}`);
+    if (purchaseType === "subscription") {
+      router.push(`/subscribe?productId=${product.id}&addons=${addonIds}&sugar=${sugarLevel}`);
+    } else {
+      router.push(`/checkout?productId=${product.id}&quantity=${quantity}&addons=${addonIds}&sugar=${sugarLevel}`);
+    }
     setIsAddonModalOpen(false);
   };
 

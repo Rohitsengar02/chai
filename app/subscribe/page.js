@@ -9,6 +9,19 @@ import Footer from "@/components/Footer";
 function SubscriptionPortal() {
   const searchParams = useSearchParams();
   const productId = parseInt(searchParams.get("productId")) || 1;
+  const sugarParam = searchParams.get("sugar") || "with";
+  const addonsParam = searchParams.get("addons") || "";
+
+  const addonsList = [
+    { id: "a1", name: "Handmade Chai Biscuits", priceNum: 59 },
+    { id: "a2", name: "Butter Rusk Toasts", priceNum: 79 },
+    { id: "a3", name: "Classic Elaichi Rusk", priceNum: 69 },
+    { id: "a4", name: "Almond Cookies", priceNum: 89 },
+  ];
+
+  const selectedAddonIds = addonsParam ? addonsParam.split(",") : [];
+  const selectedAddons = addonsList.filter(a => selectedAddonIds.includes(a.id));
+  const addonsTotal = selectedAddons.reduce((acc, a) => acc + a.priceNum, 0);
 
   const teas = [
     {
@@ -89,7 +102,7 @@ function SubscriptionPortal() {
 
   // Cost calculations
   const totalDeliveries = frequency === "morning" ? 30 : frequency === "evening" ? 12 : 8;
-  const itemsSubtotal = unitPrice * totalDeliveries;
+  const itemsSubtotal = (unitPrice * totalDeliveries) + addonsTotal;
   const taxes = Math.round(itemsSubtotal * 0.05);
   const finalTotal = itemsSubtotal + taxes;
 
@@ -237,7 +250,7 @@ function SubscriptionPortal() {
                 </div>
                 <div className="summary-item" style={{ borderTop: "1px dashed rgba(0,0,0,0.08)", paddingTop: "12px", marginTop: "12px" }}>
                   <span style={{ fontSize: "16px", fontWeight: "bold" }}>Estimated Monthly Total:</span>
-                  <strong style={{ fontSize: "18px", color: "#8a583c" }}>₹{unitPrice * 30}</strong>
+                  <strong style={{ fontSize: "18px", color: "#8a583c" }}>₹{(unitPrice * (frequency === "morning" ? 30 : frequency === "morning_evening" ? 60 : 30)) + addonsTotal}</strong>
                 </div>
               </div>
 
